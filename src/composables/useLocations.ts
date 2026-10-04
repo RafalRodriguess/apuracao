@@ -1,0 +1,4 @@
+import{ref}from'vue';import{elections}from'../repositories/elections';import type{City,State,StateSummary}from'../types/election';
+export const states=ref<State[]>([]),cities=ref<City[]>([]),summaries=ref<StateSummary[]>([]),locationsError=ref(''),summaryLoading=ref(false);
+let initialized:Promise<void>|null=null;export function loadLocations(){return initialized??=(async()=>{try{const d=await elections.locations();states.value=d.states;cities.value=d.cities;locationsError.value=''}catch{locationsError.value='Não foi possível carregar as localidades.';initialized=null}})()}
+let summaryAt=0;export async function loadSummaries(){if(summaryLoading.value||Date.now()-summaryAt<30000)return;summaryLoading.value=true;try{summaries.value=await elections.states();summaryAt=Date.now()}catch{}finally{summaryLoading.value=false}}

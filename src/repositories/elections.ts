@@ -1,0 +1,3 @@
+import {get} from '../services/http';import type{City,Office,Result,StateSummary,State}from '../types/election';
+const root='/api/elections/2026';
+export const elections={result:(uf='br',city:string|null=null,office:Office='1',signal?:AbortSignal)=>get<Result>(uf==='br'?`${root}/president`:`${root}/states/${uf.toUpperCase()}${city?`/cities/${encodeURIComponent(city)}`:''}?office=${office}`,signal),states:()=>get<StateSummary[]>(`${root}/states`),locations:()=>get<{states:State[];cities:City[]}>(`${root}/locations`),cities:(uf:string,office:Office='1')=>get<City[]>(`${root}/states/${uf}/cities?office=${office}`)};

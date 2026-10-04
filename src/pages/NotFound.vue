@@ -1,0 +1,1 @@
+<template><main class="container empty-page"><h1>Página não encontrada</h1><p>Confira a localização ou volte aos resultados do Brasil.</p><RouterLink to="/" class="primary-button">Ver resultados nacionais</RouterLink></main></template>

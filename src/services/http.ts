@@ -1,0 +1,2 @@
+export class ApiError extends Error {constructor(message:string,public status:number){super(message)}}
+export async function get<T>(path:string,signal?:AbortSignal):Promise<T>{const r=await fetch((import.meta.env.VITE_API_BASE_URL||'')+path,{signal:signal??AbortSignal.timeout(25000),headers:{Accept:'application/json'}});if(!r.ok){const error=await r.json().catch(()=>({}));throw new ApiError(error.message||'Não foi possível consultar os dados oficiais.',r.status)}return r.json()}
